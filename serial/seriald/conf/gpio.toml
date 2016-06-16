@@ -1,0 +1,10 @@
+[devices.gpio.vars]
+DepthOffset = "depth.offset"
+Depth = "depth.depth"
+Pressure = "pressure.hull"
+Temperature = "temperature.hull"
+StatusReg = "gpio.status_reg"
+StatusRegAfterSerial = "gpio.status_reg_after_serial"
+iv = "gpio.iv"
+dv = "gpio.dv"
+

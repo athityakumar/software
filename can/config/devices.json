@@ -1,0 +1,70 @@
+{
+    "devices": {
+        "aft_port": {
+            "type": "thruster",
+            "dev": "frodo",
+            "status": "motor_status.status_aft_port",
+            "vars": {
+                "target_speed": "motor_desires.aft_port",
+                "current_speed": "motor_status.speed_aft_port",
+                "current": "motor_status.current_aft_port",
+                "flags": "motor_status.flags_aft_port"
+            }
+        },
+        "aft_starboard": {
+            "type": "thruster",
+            "dev": "gandalf",
+            "status": "motor_status.status_aft_starboard",
+            "vars": {
+                "target_speed": "motor_desires.aft_starboard",
+                "current_speed": "motor_status.speed_aft_starboard",
+                "current": "motor_status.current_aft_starboard",
+                "flags": "motor_status.flags_aft_starboard"
+            }
+        },
+        "fore_starboard": {
+            "type": "thruster",
+            "dev": "samwise",
+            "status": "motor_status.status_fore_starboard",
+            "vars": {
+                "target_speed": "motor_desires.fore_starboard",
+                "current_speed": "motor_status.speed_fore_starboard",
+                "current": "motor_status.current_fore_starboard",
+                "flags": "motor_status.flags_fore_starboard"
+            }
+        },
+        "fore_port": {
+            "type": "thruster",
+            "dev": "merry",
+            "status": "motor_status.status_fore_port",
+            "vars": {
+                "target_speed": "motor_desires.fore_port",
+                "current_speed": "motor_status.speed_fore_port",
+                "current": "motor_status.current_fore_port",
+                "flags": "motor_status.flags_fore_port"
+            }
+        },
+        "vector_port": {
+            "type": "stepper",
+            "dev": "brego",
+            "status": "vector_status.status_port",
+            "vars": {
+                "target_position": "vector_desires.port",
+                "current_position": "vector_status.position_port",
+                "current": "vector_status.current_port",
+                "flags": "vector_status.flags_port"
+            }
+        },
+	"vector_starboard": {
+	    "type": "stepper",
+	    "dev": "shadowfax",
+	    "status": "motor_status.status_sway_fore",
+	    "vars": {
+		"target_position": "motor_desires.sway_fore",
+		"current_position": "vector_status.position_starboard",
+		"current": "vector_status.current_starboard",
+		"flags": "vector_status.flags_starboard"
+	    }
+	}
+    }
+}

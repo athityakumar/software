@@ -1,0 +1,61 @@
+#!/usr/bin/env python2
+import pickle
+
+configurations = dict(
+            competition = dict(start_x=80,start_y=14),
+            practice = dict(start_x=47.5,start_y=8.5)
+            )
+import argparse 
+parser = argparse.ArgumentParser(description="""Marker Viewer - Graphical display of DVL locations""")
+parser.add_argument('filename', type=str, help="file containing output from marker to be viewed")
+parser.add_argument('configuration', type=str, default="competition", help="which background configuration to use.", nargs='?', choices=configurations.keys())
+
+args = parser.parse_args()
+marks = pickle.load(file(args.filename, "r"))
+configuration = configurations[ args.configuration ]
+
+import pylab
+
+first_point = None
+
+#Handling of line-drawing between selected points
+fig = pylab.gcf()
+def onclick(event):
+    global first_point
+    ind = event.ind[0]
+    X,Y = xs[ind], ys[ind]
+    if first_point == None:
+        first_point = X,Y 
+        print "first point"
+        return
+    print "second point"
+    x,y = first_point
+    pylab.plot( [X,x], [Y,y] )
+    first_point = None
+
+    mx = (x+X)/2.
+    my = (y+Y)/2.
+    from math import sqrt, atan2, degrees
+    distance = sqrt( (x-X)**2 + (y-Y)**2 )
+    angle = degrees(atan2( X-x, Y-y ))
+    string = "{distance:.2f}m, {angle:.0f}*".format(distance=distance, angle=angle)
+    pylab.text( mx, my, string)
+    pylab.draw()
+fig.canvas.mpl_connect('pick_event', onclick)
+
+#Show background image
+bg = pylab.imread("Transdec.jpg")
+pylab.imshow(bg, extent=(0, 130.8, 0, 80.6))
+
+labels = marks.keys()
+offset_x = configuration["start_x"] - marks["start"][1]
+offset_y = configuration["start_y"] - marks["start"][0]
+xs = [marks[x][1] + offset_x for x in labels]
+ys = [marks[x][0] + offset_y for x in labels]
+sizes = range(1,len(xs)+1)
+pylab.scatter(xs, ys, s=45, picker=True)
+
+for x,y,label in zip(xs,ys,labels):
+    pylab.text(x,y, " " + label)
+
+pylab.show()

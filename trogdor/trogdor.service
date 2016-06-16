@@ -1,0 +1,13 @@
+[Unit]
+Description=CUAUV Services
+Wants=dev-ttyUSB_argo_7.device
+After=dev-ttyUSB_argo_7.device
+
+[Service]
+Type=forking
+User=software
+ExecStart=/home/software/cuauv/software/build/trogdor start
+ExecStop=/home/software/cuauv/software/build/trogdor stop
+
+[Install]
+WantedBy=multi-user.target
